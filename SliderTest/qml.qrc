@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>PropertiesGUI.qml</file>
+        <file>PropertySlider.qml</file>
+    </qresource>
+</RCC>
