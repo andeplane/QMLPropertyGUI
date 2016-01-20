@@ -4,8 +4,7 @@ QT += qml quick
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    properties.cpp \
-    qmlproperty.cpp
+    properties.cpp
 
 RESOURCES += qml.qrc
 
@@ -16,5 +15,4 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    properties.h \
-    qmlproperty.h
+    properties.h

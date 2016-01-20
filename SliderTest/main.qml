@@ -10,8 +10,8 @@ Window {
     Properties {
         id: myProperties
         PropertiesGUI {
-            width: 300
-            properties: myProperties.properties
+            width: 500
+            properties: myProperties
         }
     }
 

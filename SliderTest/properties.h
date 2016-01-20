@@ -4,90 +4,60 @@
 #include <QQuickItem>
 #include <QVariantList>
 #include <QVariantMap>
+#include <QVariant>
 
 class Property : public QObject
 {
+    Q_OBJECT
+    Q_PROPERTY(float value READ value WRITE setValue NOTIFY valueChanged)
+    Q_PROPERTY(float min READ min WRITE setMin NOTIFY minChanged)
+    Q_PROPERTY(float max READ max WRITE setMax NOTIFY maxChanged)
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+public:
+    float m_value = 0;
+    float m_min = 0;
+    float m_max = 0;
+    QString m_name;
 
+    Property(QString name, float min, float max, float value);
+    Property() { }
+    float value() const;
+    float min() const;
+    float max() const;
+    QString name() const;
+
+public slots:
+    void setValue(float value);
+    void setMin(float min);
+    void setMax(float max);
+    void setName(QString name);
+
+signals:
+    void valueChanged(float value);
+    void minChanged(float min);
+    void maxChanged(float max);
+    void nameChanged(QString name);
+    void buttonPressed();
 };
 
-class Properties : public QObject
+class Properties : public QQuickItem
 {
     Q_OBJECT
-    Q_PROPERTY(double value1 READ value1 WRITE setValue1 NOTIFY value1Changed)
-    Q_PROPERTY(double value2 READ value2 WRITE setValue2 NOTIFY value2Changed)
-    Q_PROPERTY(double penisSize READ penisSize WRITE setPenisSize NOTIFY penisSizeChanged)
     Q_PROPERTY(QVariantList properties READ properties WRITE setProperties NOTIFY propertiesChanged)
 private:
-    double m_value1 = 6;
-    double m_value2 = 0;
-    double m_penisSize = 0;
     QVariantList m_properties;
 
 public:
-    explicit Properties(QObject *parent = 0);
-    double value1() const
-    {
-        return m_value1;
-    }
-
-    double value2() const
-    {
-        return m_value2;
-    }
-
-    double penisSize() const
-    {
-        return m_penisSize;
-    }
-
-    QVariantList properties() const
-    {
-        return m_properties;
-    }
+    explicit Properties(QQuickItem *parent = 0);
+    ~Properties();
+    void createProperty(QString name, float min, float max, float value);
+    QVariantList properties() const;
 
 signals:
-
-    void value1Changed(double value1);
-    void value2Changed(double value2);
-    void penisSizeChanged(double penisSize);
     void propertiesChanged(QVariantList properties);
 
 public slots:
-    void setValue1(double value1)
-    {
-        if (m_value1 == value1)
-            return;
-
-        m_value1 = value1;
-        qDebug() << "Value 1:" << m_value1;
-        emit value1Changed(value1);
-    }
-    void setValue2(double value2)
-    {
-        if (m_value2 == value2)
-            return;
-
-        m_value2 = value2;
-        qDebug() << "Value 2:" << m_value2;
-        emit value2Changed(value2);
-    }
-    void setPenisSize(double penisSize)
-    {
-        if (m_penisSize == penisSize)
-            return;
-
-        m_penisSize = penisSize;
-        qDebug() << "penisSize:" << m_penisSize;
-        emit penisSizeChanged(penisSize);
-    }
-    void setProperties(QVariantList properties)
-    {
-        if (m_properties == properties)
-            return;
-
-        m_properties = properties;
-        emit propertiesChanged(properties);
-    }
+    void setProperties(QVariantList properties);
 };
 
 #endif // PROPERTIES_H
