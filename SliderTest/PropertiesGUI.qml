@@ -41,17 +41,19 @@ Rectangle {
             if(QMLObject===null) {
                 console.log("Could not add slider...")
             } else {
-                QMLObject.slider.minimumValue = aProperty.min
-                QMLObject.slider.maximumValue = aProperty.max
+                QMLObject.minimumValue = aProperty.min
+                QMLObject.maximumValue = aProperty.max
                 QMLObject.name = aProperty.name
                 QMLObject.width = propertiesGUIRoot.width
                 QMLObject.labelWidth = propertiesGUIRoot.labelWidth
-                QMLObject.slider.value = aProperty.value
-                QMLObject.slider.valueChanged.connect(function() {
-                    aProperty.value = QMLObject.slider.value
+                QMLObject.value = aProperty.value
+                QMLObject.valueChanged.connect(function() {
+                    aProperty.value = QMLObject.value
+                })
+                aProperty.valueChanged.connect(function() {
+                    QMLObject.value = aProperty.value
                 })
             }
-
         } else {
             console.log("Could not add slider...")
         }
